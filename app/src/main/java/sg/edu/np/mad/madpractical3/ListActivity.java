@@ -2,6 +2,7 @@ package sg.edu.np.mad.madpractical3;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,7 +44,7 @@ public class ListActivity extends AppCompatActivity {
                 .setPositiveButton("VIEW", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        launchMainActivity();
                     }
                 })
                 .setNegativeButton("CLOSE", new DialogInterface.OnClickListener() {
@@ -54,5 +55,14 @@ public class ListActivity extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+    private void launchMainActivity() {
+        int randomInt = (int) (Math.random() * 100000);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra("random_number", "1234");
+        //intent.putExtra("random_number", String.valueOf(randomInt));
+        intent.putExtra("random_number", randomInt);
+        startActivity(intent);
     }
 }
