@@ -1,8 +1,10 @@
 package sg.edu.np.mad.madpractical3;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,16 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
         User user = new User("Rena Soong", "MAD Developer", 1, false);
 
+        Toast toastFollow = Toast.makeText(this, "Followed", Toast.LENGTH_SHORT);
+        Toast toastUnfollow = Toast.makeText(this, "Unfollowed", Toast.LENGTH_SHORT);
+
+
+
         int randomNumber = getIntent().getIntExtra("random_number", 0);
-        //String randomNumber = getIntent().getStringExtra("random_number");
 
         TextView tvName = findViewById(R.id.tvname);
         TextView tvDescription = findViewById(R.id.tvDescription);
         Button btnFollow = findViewById(R.id.btnFollow);
 
-        //tvName.setText(user.name + randomNumber);
         tvName.setText(user.name + " " + String.valueOf(randomNumber));
         tvDescription.setText(user.description);
         btnFollow.setText("Follow");
+
+        btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user.followed) {
+                    user.followed = false;
+                    btnFollow.setText("Follow");
+                    toastFollow.show();
+                } else if (!user.followed) {
+                    user.followed = true;
+                    btnFollow.setText("Unfollow");
+                    toastUnfollow.show();
+                }
+            }
+        });
     }
 }
